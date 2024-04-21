@@ -21,23 +21,24 @@
 	--tran-05: all 0.5s ease;
 }
 
-/* ===== Reusable - CSS  ===== */
+/* ===== Generales  ===== */
 body {
 	height: 100vh;
 	background-color: var(--body-color);
 	font-family: "Montserrat", Arial, Helvetica, sans-serif;
+	transition: var(--tran-05);
 }
 
-.sidebar .text {
-	font-size: 16px;
-	font-weight: 500;
-	color: var(--text-color);
+a {
+	text-decoration: none;
 }
-
-.sidebar .image {
-	min-width: 60px;
-	display: flex;
-	align-items: center;
+body.dark {
+	--body-color: #18191a;
+	--sidebar-color: #242526;
+	--primary-color: #695cfe;
+	--primary-color-ligth: #3a3b3c;
+	--toggle-color: #fff;
+	--text-color: #ccc;
 }
 
 /* ===== Siderbar  ===== */
@@ -50,6 +51,49 @@ body {
 	width: 250px;
 	padding: 10px 14px;
 	background-color: var(--sidebar-color);
+	transition: var(--tran-05);
+	z-index: 10;
+}
+.sidebar.close {
+	width: 88px;
+}
+/* ===== Reusable - CSS  ===== */
+
+.sidebar .text {
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--text-color);
+	white-space: nowrap;
+	transition: var(--tran-04);
+	opacity: 1;
+}
+.sidebar.close .text {
+	opacity: 0;
+}
+
+.sidebar .image {
+	min-width: 60px;
+	display: flex;
+	align-items: center;
+}
+.sidebar li {
+	height: 50px;
+	margin-top: 10px;
+	list-style: none;
+	display: flex;
+	align-items: center;
+}
+.sidebar li .icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 60px;
+	font-size: 20px;
+}
+.sidebar li .icon,
+.sidebar li .text {
+	color: var(--text-color);
+	transition: var(--tran-02);
 }
 .sidebar header {
 	position: relative;
@@ -77,14 +121,143 @@ header .image-text .header-text {
 	position: absolute;
 	top: 50%;
 	right: -25px;
-	transform: translateY(-50%);
-	width: 25px;
-	height: 25px;
+	transform: translateY(-50%) rotate(180deg);
+	width: 30px;
+	height: 30px;
 	background-color: var(--primary-color);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
-	color: var(--sidebar-color);
-	font-size: 22px;
+	color: #fff;
+	font-size: 25px;
+	transition: var(--tran-03);
+}
+.sidebar.close header .toggle {
+	transform: translateY(-50%);
+}
+
+.sidebar .menu {
+	margin-top: 35px;
+}
+
+.sidebar .search-box {
+	background-color: var(--primary-color-ligth);
+	border-radius: 6px;
+	transition: var(--tran-05);
+}
+.search-box input {
+	width: 100%;
+	height: 100%;
+	outline: none;
+	border: none;
+	background-color: var(--primary-color-ligth);
+}
+.sidebar li a {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	border-radius: 6px;
+	transition: var(--tran-04);
+}
+.sidebar li a:hover {
+	background-color: var(--primary-color);
+}
+.sidebar li a:hover .icon,
+.sidebar li a:hover .text {
+	color: #fff;
+}
+
+.sidebar .menu-bar {
+	height: calc(100% - 50px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.menu-bar .mode {
+	position: relative;
+	border-radius: 6px;
+	background-color: var(--primary-color-ligth);
+}
+
+.menu-bar .mode .moon-sun {
+	height: 50px;
+	width: 60px;
+	display: flex;
+	align-items: center;
+}
+
+.menu-bar .mode i {
+	position: absolute;
+	transition: var(--tran-03);
+}
+
+.menu-bar .mode i.sun {
+	opacity: 0;
+}
+
+body.dark .menu-bar .mode i.sun {
+	opacity: 1;
+}
+body.dark .menu-bar .mode i.moon {
+	opacity: 0;
+}
+
+.menu-bar .mode .toggle-switch {
+	position: absolute;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	min-width: 60px;
+	cursor: pointer;
+}
+
+.toggle-switch .switch {
+	position: relative;
+	height: 22px;
+	width: 44px;
+	border-radius: 25px;
+	background-color: var(--toggle-color);
+}
+
+.switch::before {
+	content: "";
+	height: 15px;
+	width: 15px;
+	position: absolute;
+	border-radius: 50%;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+	background-color: var(--sidebar-color);
+	-webkit-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.3);
+	transition: var(--tran-03);
+}
+
+body.dark .switch::before {
+	left: 25px;
+}
+
+.home {
+	position: relative;
+	left: 250px;
+	height: 100vh;
+	width: calc(100% - 250px);
+	transition: var(--tran-05);
+}
+
+.sidebar.close ~ .home {
+	left: 88px;
+	width: calc(100% - 88px);
+}
+
+.home .text {
+	font-size: 60px;
+	padding: 20px;
 }
